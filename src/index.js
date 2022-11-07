@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from '@redux-saga/core';
 import { configureStore } from '@reduxjs/toolkit';
 import catsReducer from './catState'
-
+import catSaga from './catSaga'
 
 const saga = createSagaMiddleware();
 const store = configureStore({
@@ -15,12 +15,14 @@ const store = configureStore({
   },
   middleware: [saga]
 });
-  
+saga.run(catSaga)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  <Provider store={store}>
     <App />
+  </Provider>
   </React.StrictMode>
 );
 
